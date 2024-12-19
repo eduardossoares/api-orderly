@@ -21,11 +21,12 @@ export function isAuthenticated(
     const token = arrayToken[1];
 
     try {
-
         const { sub } = verify(
             token,
             process.env.JWT_SECRET
         ) as Payload;
+
+        req.user_id = sub;
 
         return next();
 

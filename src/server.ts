@@ -3,12 +3,19 @@ import "express-async-errors";
 import { router } from "./routes";
 import cors from "cors";
 
+import path from "path";
+
 const app = express();
 const port = 3333;
 
 app.use(json());
-app.use(router);
 app.use(cors());
+app.use(router);
+
+app.use(
+    "/files",
+    express.static(path.resolve(__dirname, "..", "tmp"))
+)
 
 app.use((error: Error, req: Request, res: Response, nextFunction: NextFunction) => {
     if(error instanceof Error) {
